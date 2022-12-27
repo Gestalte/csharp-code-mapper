@@ -45,7 +45,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Collector.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="CSharpCodeMapperPackage.cs" />
   </ItemGroup>
