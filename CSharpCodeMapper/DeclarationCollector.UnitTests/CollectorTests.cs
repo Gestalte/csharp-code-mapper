@@ -1,11 +1,9 @@
-using Microsoft.CodeAnalysis;
-using Microsoft.CodeAnalysis.CSharp;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
-using System.Diagnostics;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 
-namespace CSharpCodeMapper.UnitTests
+namespace DeclarationCollector.UnitTests
 {
-    [TestFixture]
+    [TestClass]
     public class CollectorTests
     {
         const string programText =
@@ -73,19 +71,14 @@ namespace TopLevel
     }
 }";
 
-        [Test]
-        public void VisitReturnsDeclarationDtos()
+        [TestMethod]
+        public void GetDeclarations()
         {
-            SyntaxTree tree = CSharpSyntaxTree.ParseText(programText);
-            CompilationUnitSyntax root = tree.GetCompilationUnitRoot();
+            var output = Collector.GetDeclarations(programText);
 
-            var collector = new DeclarationCollector.SyntaxWalker();
+            output.ForEach(f=>Console.WriteLine($"{f.LineNumber} {f.DeclarationType} {f.Type} {f.Name}{f.Parameters}"));
 
-            collector.Visit(root);
-
-            collector.Display.ForEach(f=> Console.WriteLine($"{f.LineNumber} {f.DeclarationType} {f.Type} {f.Name}{f.Parameters}"));
-            
-            Assert.That(collector.Display, Is.Not.EqualTo(null));
+            Assert.IsNotNull(output);
         }
     }
 }
