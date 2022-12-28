@@ -79,7 +79,7 @@ namespace TopLevel
             SyntaxTree tree = CSharpSyntaxTree.ParseText(programText);
             CompilationUnitSyntax root = tree.GetCompilationUnitRoot();
 
-            var collector = new DeclarationCollector.Collector();
+            var collector = new DeclarationCollector.SyntaxWalker();
 
             collector.Visit(root);
 
