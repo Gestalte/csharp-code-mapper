@@ -1,5 +1,12 @@
-﻿using Microsoft.VisualStudio.Extensibility.UI;
+﻿using DeclarationCollector;
+using Microsoft.VisualStudio.Extensibility;
+using Microsoft.VisualStudio.Extensibility.Editor;
+using Microsoft.VisualStudio.Extensibility.UI;
+using System;
+using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
+using System.Windows.Controls;
+using System.Windows.Media;
 
 namespace CodeMapperExtension
 {
@@ -11,30 +18,43 @@ namespace CodeMapperExtension
     {
         public CodeMapData()
         {
-            HelloCommand = new AsyncCommand((parameter, cancellationToken) =>
+            UpdateCommand = new AsyncCommand(async (parameter, cancellationToken) =>
             {
-                Text = $"Hello {parameter as string}!";
-                return Task.CompletedTask;
+                //var output = Collector.GetDeclarations(programText);
+
+                Tree.Add(new TreeItem
+                {
+                    Name = "Update " + count
+                });
+
+                count++;
             });
         }
 
-        private string _name = string.Empty;
-        [DataMember]
-        public string Name
-        {
-            get => _name;
-            set => SetProperty(ref this._name, value);
-        }
-
-        private string _text = string.Empty;
-        [DataMember]
-        public string Text
-        {
-            get => _text;
-            set => SetProperty(ref this._text, value);
-        }
+        private int count = 0;
 
         [DataMember]
-        public AsyncCommand HelloCommand { get; }
+        public AsyncCommand UpdateCommand { get; }
+
+        [DataMember]
+        public ObservableCollection<TreeItem> Tree { get; } = new();
+
+    }
+
+    [DataContract]
+    public class TreeItem
+    {
+         [DataMember]
+        public int LineNumber { get; set; } = 0;
+         [DataMember]
+        public string Type { get; set; } = "";
+         [DataMember]
+        public string Name { get; set; } = "";
+         [DataMember]
+        public string Parameters { get; set; } = "";
+         [DataMember]
+        public string DeclarationType { get; set; } = "";
+        [DataMember]
+        public List<TreeItem> Children { get; set; } = new();
     }
 }

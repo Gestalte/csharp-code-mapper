@@ -30,4 +30,8 @@
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
   </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\DeclarationCollector\DeclarationCollector.csproj" />
+  </ItemGroup>
 </Project>

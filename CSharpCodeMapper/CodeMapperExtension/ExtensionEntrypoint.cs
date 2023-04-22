@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.VisualStudio.Extensibility;
+using Microsoft.VisualStudio.Extensibility.Editor;
 
 namespace CodeMapperExtension
 {
@@ -9,6 +10,11 @@ namespace CodeMapperExtension
     [VisualStudioContribution]
     internal class ExtensionEntrypoint : Extension
     {
+        public TextViewExtensionConfiguration TextViewExtensionConfiguration => new()
+        {
+            AppliesTo = new[] { DocumentFilter.FromDocumentType("CSharp") },
+        };
+
         /// <inheritdoc />
         protected override void InitializeServices(IServiceCollection serviceCollection)
         {
