@@ -155,7 +155,7 @@ namespace DeclarationCollector
         {
             Display.Add(new DeclarationDto
                 (GetLineNumber(node)
-                , "Namespace"
+                , "Record"
                 , node.Identifier.ToString()
                 , parameters: node.ParameterList?.ToString() ?? ""
                 ));
@@ -172,6 +172,6 @@ namespace DeclarationCollector
                 ));
 
             base.VisitStructDeclaration(node);
-        }
+        }        
     }
 }
