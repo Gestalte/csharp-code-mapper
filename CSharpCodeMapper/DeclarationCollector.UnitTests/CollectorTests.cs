@@ -32,6 +32,8 @@ namespace TopLevel
 
         class Foo : IFoo
         {     
+            public sealed record Rec(int Id, string Name);
+
             enum Season
             {
                 Spring,
